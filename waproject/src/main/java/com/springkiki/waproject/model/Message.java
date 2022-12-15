@@ -1,5 +1,7 @@
 package com.springkiki.waproject.model;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +16,14 @@ public class Message {
 	private int senderID;
 	private int receiverID;
 	private String message;
+	private Timestamp created;
+	
+	public Timestamp getCreated() {
+		return created;
+	}
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
 	public int getMessageID() {
 		return messageID;
 	}

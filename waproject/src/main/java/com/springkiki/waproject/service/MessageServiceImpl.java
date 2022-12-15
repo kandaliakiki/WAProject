@@ -1,5 +1,6 @@
 package com.springkiki.waproject.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,11 @@ public class MessageServiceImpl implements MessageService {
 		return messageRepository.findAll();
 	}
 
+	public Timestamp getCreatedMessage() {
+		return messageRepository.getCreatedMessage();
+	}
+	
+	public List<Message> getMessageBetweenUsers(int user1ID ,int user2ID) {
+		return messageRepository.getMessageBetweenUsers(user1ID, user2ID);
+	}
 }
