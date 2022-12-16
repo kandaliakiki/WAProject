@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Avatar } from "@mui/material";
 
-export default function ChatHeader() {
+export default function ChatHeader({ username2 }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -19,12 +21,12 @@ export default function ChatHeader() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <ArrowBackIcon />
           </IconButton>
+          <Avatar sx={{ mr: 2 }}>{username2.substring(0, 1)}</Avatar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            {username2}
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>

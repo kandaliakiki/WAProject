@@ -43,7 +43,7 @@ public class MessageController {
 		return messageService.getAllMessage();
 	}
 	
-	@GetMapping("/getMessage2Users")
+	@PostMapping("/getMessage2Users")
 	public String getMessage2Users(@RequestBody String params) {
 		JSONObject param = new JSONObject(params);
 		String username1 = userService.getUserByID(param.getInt("user1ID")).orElse(null).getName();
