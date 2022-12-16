@@ -3,29 +3,33 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatMessage from "./ChatMessage/ChatMessage";
 import * as api from "../../api";
-const ChatWindow = ({ user1ID, user2ID }) => {
+const ChatWindow = ({ user1, user2 }) => {
   const [messages, setMessages] = useState([]);
   const fetchMessage = async () => {
-    const paramUser = {
-      user1ID: user1ID,
-      user2ID: user2ID,
-    };
-    console.log("test");
-    const { data } = await api.getChatUsers(paramUser);
-    setMessages(data);
+    if (user1 !== undefined && user2 !== undefined) {
+      const paramUser = {
+        user1ID: user1.userID,
+        user2ID: user2.userID,
+      };
+      console.log("test");
+      const { data } = await api.getChatUsers(paramUser);
+      setMessages(data);
+    }
   };
 
   useEffect(() => {
     fetchMessage();
-  }, []);
+  }, [user2]);
 
   return (
     <Fragment>
       <Container>
-        <ChatHeader username2={"Eli"}></ChatHeader>
+        <ChatHeader
+          username2={user2 == undefined ? "blank" : user2.name}
+        ></ChatHeader>
         <ChatMessage
-          user1ID={user1ID}
-          user2ID={user2ID}
+          user1={user1}
+          user2={user2}
           messages={messages}
           onSendMessage={fetchMessage}
         ></ChatMessage>

@@ -8,6 +8,11 @@ export const getChatUsers = (paramChatUser) =>
 export const createMessage = (paramMessage) =>
   axios.post(`${urlMessage}/createMessage`, paramMessage);
 
+const urlFriend = "http://localhost:8080/friend";
+
+export const getFriendByUser = (paramFriend) =>
+  axios.post(`${urlFriend}/getFriendByUser`, paramFriend);
+
 export const getAllMessage = () => axios.get(`${urlMessage}/getAllMessage`);
 
 // axios({

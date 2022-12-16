@@ -1,0 +1,8 @@
+.friend-window {
+  height: 20rem;
+}
+
+.friend-list {
+  height: 18rem;
+  overflow: auto;
+}

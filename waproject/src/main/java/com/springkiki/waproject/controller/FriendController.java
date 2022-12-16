@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import com.springkiki.waproject.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("/friend")
+@CrossOrigin
 public class FriendController {
 
 	@Autowired
@@ -42,7 +44,7 @@ public class FriendController {
 		return friendService.getAllFriend();
 	}
 	
-	@GetMapping("/getFriendByUser")
+	@PostMapping("/getFriendByUser")
 	public List<Optional<User>> getFriendsByUser( @RequestBody String params ) {
 		JSONObject param = new JSONObject(params);
 		List<Integer> listFriendID = friendService.getFriendsByUser(param.getInt("user1ID"));

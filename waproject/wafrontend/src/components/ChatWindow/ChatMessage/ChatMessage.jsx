@@ -16,7 +16,7 @@ import "./ChatMessage.css";
 import * as api from "../../../api";
 import SendIcon from "@mui/icons-material/Send";
 
-const ChatMessage = ({ messages, user1ID, user2ID, onSendMessage }) => {
+const ChatMessage = ({ messages, user1, user2, onSendMessage }) => {
   const [messageTyped, setMessageTyped] = useState([]);
   const [messageLength, setMessageLength] = useState(messages.length);
   const messagesEndRef = useRef(null);
@@ -49,13 +49,13 @@ const ChatMessage = ({ messages, user1ID, user2ID, onSendMessage }) => {
   const handleClickSend = async () => {
     const messageObj = {
       message: messageTyped,
-      receiverID: user2ID,
-      senderID: user1ID,
+      receiverID: user2.userID,
+      senderID: user1.userID,
     };
 
     const paramUser = {
-      user1ID: user1ID,
-      user2ID: user2ID,
+      user1ID: user1.userID,
+      user2ID: user2.userID,
     };
 
     const { data } = await api.createMessage(messageObj);

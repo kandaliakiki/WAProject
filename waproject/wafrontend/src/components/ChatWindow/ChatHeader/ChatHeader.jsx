@@ -14,15 +14,6 @@ export default function ChatHeader({ username2 }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
           <Avatar sx={{ mr: 2 }}>{username2.substring(0, 1)}</Avatar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {username2}
