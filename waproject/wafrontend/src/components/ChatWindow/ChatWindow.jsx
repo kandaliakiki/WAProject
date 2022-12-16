@@ -1,5 +1,5 @@
-import { Container } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { Container, Paper } from "@mui/material";
+import { Fragment, useEffect, useRef, useState } from "react";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ChatMessage from "./ChatMessage/ChatMessage";
 import * as api from "../../api";
@@ -18,11 +18,17 @@ const ChatWindow = ({ user1ID, user2ID }) => {
   useEffect(() => {
     fetchMessage();
   }, []);
+
   return (
     <Fragment>
       <Container>
         <ChatHeader username2={"Eli"}></ChatHeader>
-        <ChatMessage></ChatMessage>
+        <ChatMessage
+          user1ID={user1ID}
+          user2ID={user2ID}
+          messages={messages}
+          onSendMessage={fetchMessage}
+        ></ChatMessage>
       </Container>
     </Fragment>
   );

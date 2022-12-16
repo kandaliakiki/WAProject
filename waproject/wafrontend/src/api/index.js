@@ -5,6 +5,9 @@ const urlMessage = "http://localhost:8080/message";
 export const getChatUsers = (paramChatUser) =>
   axios.post(`${urlMessage}/getMessage2Users`, paramChatUser);
 
+export const createMessage = (paramMessage) =>
+  axios.post(`${urlMessage}/createMessage`, paramMessage);
+
 export const getAllMessage = () => axios.get(`${urlMessage}/getAllMessage`);
 
 // axios({
