@@ -10,8 +10,9 @@ const ChatWindow = ({ user1ID, user2ID }) => {
       user1ID: user1ID,
       user2ID: user2ID,
     };
+    console.log("test");
     const { data } = await api.getChatUsers(paramUser);
-    console.log(data);
+    setMessages(data);
   };
 
   useEffect(() => {

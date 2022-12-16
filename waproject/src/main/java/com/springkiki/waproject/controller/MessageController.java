@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ import com.springkiki.waproject.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("/message")
+@CrossOrigin
 public class MessageController {
 
 	@Autowired
@@ -43,7 +45,7 @@ public class MessageController {
 		return messageService.getAllMessage();
 	}
 	
-	@GetMapping("/getMessage2Users")
+	@PostMapping("/getMessage2Users")
 	public String getMessage2Users(@RequestBody String params) {
 		JSONObject param = new JSONObject(params);
 		String username1 = userService.getUserByID(param.getInt("user1ID")).orElse(null).getName();

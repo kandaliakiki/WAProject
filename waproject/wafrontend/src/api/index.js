@@ -3,11 +3,15 @@ import axios from "axios";
 const urlMessage = "http://localhost:8080/message";
 
 export const getChatUsers = (paramChatUser) =>
-  axios({
-    method: "get",
-    url: `${urlMessage}/getMessage2Users`,
-    params: JSON.stringify(paramChatUser),
-  });
+  axios.post(`${urlMessage}/getMessage2Users`, paramChatUser);
+
+export const getAllMessage = () => axios.get(`${urlMessage}/getAllMessage`);
+
+// axios({
+//   method: "post",
+//   url: `http://localhost:8080/message/getMessage2Users`,
+//   data: paramChatUser,
+// });
 // axios.post(`${urlMessage}/getMessage2Users`, );
 
 // export const createPost = (newPost) => axios.post(url, newPost);
