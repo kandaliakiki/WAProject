@@ -13,6 +13,17 @@ const urlFriend = "http://localhost:8080/friend";
 export const getFriendByUser = (paramFriend) =>
   axios.post(`${urlFriend}/getFriendByUser`, paramFriend);
 
+export const addFriend = (paramNewFriend) =>
+  axios.post(`${urlFriend}/createFriend`, paramNewFriend);
+
+export const deleteFriend = (paramNewFriend) =>
+  axios.post(`${urlFriend}/deleteFriend`, paramNewFriend);
+
+const urlUser = "http://localhost:8080/user";
+
+export const getAllOtherUser = (paramAllUser) =>
+  axios.post(`${urlUser}/getAllOtherUser`, paramAllUser);
+
 export const getAllMessage = () => axios.get(`${urlMessage}/getAllMessage`);
 
 // axios({

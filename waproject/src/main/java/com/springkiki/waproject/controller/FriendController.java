@@ -34,6 +34,13 @@ public class FriendController {
 	
 	@PostMapping("/createFriend")
 	public String createFriend(@RequestBody Friend friend ) {
+		if(friendService.checkFriendExist(friend.getUser1ID(), friend.getUser2ID())>0) {
+			return "friend already exist";
+		}
+		
+		if(userService.getUserByID(friend.getUser1ID()).isEmpty() || userService.getUserByID(friend.getUser2ID()).isEmpty()) {
+			return "user doesnt exist";
+		}
 		friendService.createFriend(friend);
 		return "new friend has been added";
 	}
@@ -54,4 +61,24 @@ public class FriendController {
 		}
 		return listUserObj;
 	}
+	
+	@PostMapping("/deleteFriend")
+	public String deleteFriend(@RequestBody String params ) {
+		JSONObject param = new JSONObject(params);
+		if(friendService.checkFriendExist(param.getInt("user1ID"), param.getInt("user2ID"))<=0) {
+			return "friend doesnt exist";
+		}
+		
+		if(userService.getUserByID(param.getInt("user1ID")).isEmpty() || userService.getUserByID(param.getInt("user2ID")).isEmpty()) {
+			return "user doesnt exist";
+		}
+	
+		try {
+			friendService.deleteFriend(friendService.getFriend(param.getInt("user1ID"), param.getInt("user2ID"))) ;
+		} catch (Exception e) {
+			return "ada eror: "+e.getMessage();
+		}
+		return "friend has been deleted";
+	}
+	
 }

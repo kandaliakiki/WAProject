@@ -30,5 +30,17 @@ public class FriendServiceImpl implements FriendService {
 		return friendRepository.getAllFriendsByUser(user1ID);
 	}
 	
+	public void deleteFriend(Friend friend) {
+		friendRepository.delete(friend);
+	}
+	
+	public Friend getFriend(int user1ID, int user2ID) {
+		return friendRepository.getFriend(user1ID, user2ID);
+	}
+	
+	public Integer checkFriendExist(int user1ID, int user2ID) {
+		return friendRepository.checkFriendExist(user1ID, user2ID);
+	}
+	
 
 }

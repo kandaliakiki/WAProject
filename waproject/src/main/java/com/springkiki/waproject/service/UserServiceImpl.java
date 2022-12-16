@@ -29,4 +29,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findById(userID);
 	}
 
+	public List<User> getAllOtherUser(int userID) {
+		return userRepository.getAllOtherUser(userID);
+	}
 }
