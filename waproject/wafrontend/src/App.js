@@ -75,6 +75,8 @@ function App() {
                   color="primary"
                   onClick={() => {
                     navigate("/");
+                    setUser1(undefined);
+                    setUser2(undefined);
                   }}
                 >
                   Logout

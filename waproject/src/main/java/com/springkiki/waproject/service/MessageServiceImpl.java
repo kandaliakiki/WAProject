@@ -32,4 +32,8 @@ public class MessageServiceImpl implements MessageService {
 	public List<Message> getMessageBetweenUsers(int user1ID ,int user2ID) {
 		return messageRepository.getMessageBetweenUsers(user1ID, user2ID);
 	}
+	
+	public Message getLastMessageBetweenUsers(int user1ID ,int user2ID) {
+		return messageRepository.getLastMessageBetweenUsers(user1ID, user2ID);
+	}
 }

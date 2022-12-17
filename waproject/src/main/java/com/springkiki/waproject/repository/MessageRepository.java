@@ -17,4 +17,8 @@ public interface MessageRepository extends JpaRepository<Message, Integer>{
 	@Query(value =   "select * from message where senderid in (:user1ID,:user2ID) and "
 			+ "receiverid in (:user1ID,:user2ID) order by messageid ", nativeQuery = true)
 	List<Message> getMessageBetweenUsers(int user1ID, int user2ID);
+	
+	@Query(value =   "select * from message where senderid in (:user1ID,:user2ID) and "
+			+ "receiverid in (:user1ID,:user2ID) order by messageid desc limit 1 ", nativeQuery = true)
+	Message getLastMessageBetweenUsers(int user1ID, int user2ID);
 }

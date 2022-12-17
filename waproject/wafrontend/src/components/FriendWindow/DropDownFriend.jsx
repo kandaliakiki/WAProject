@@ -29,7 +29,7 @@ const DropDownFriend = ({ user1, onAddFriend, onDeleteFriend }) => {
         fullWidth
         options={allOtherUser}
         sx={{ marginTop: "5rem" }}
-        renderInput={(params) => <TextField {...params} label="Friend Name" />}
+        renderInput={(params) => <TextField {...params} label="All User" />}
         onChange={(e, newValue) => {
           setSelectedUserID(newValue == undefined ? 0 : newValue.userID);
           setSelectedUserName(

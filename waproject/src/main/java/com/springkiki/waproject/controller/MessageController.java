@@ -73,4 +73,33 @@ public class MessageController {
 		}
 		return hasiljson.toString();
 	}
+	
+	@PostMapping("/getLastMessage2Users")
+	public String getLastMessage2Users(@RequestBody String params) {
+		JSONObject param = new JSONObject(params);
+		String username1 = userService.getUserByID(param.getInt("user1ID")).orElse(null).getName();
+		String username2 = userService.getUserByID(param.getInt("user2ID")).orElse(null).getName();
+		
+		Message LastMessage  = messageService.getLastMessageBetweenUsers(param.getInt("user1ID"), param.getInt("user2ID"));
+		JSONObject jsonMessage = new JSONObject();
+		List<JSONObject> hasiljson = new ArrayList<JSONObject>();
+		if(LastMessage!=null) {
+			if(LastMessage.getSenderID()==param.getInt("user1ID")) {
+				jsonMessage.put("sender", username1);
+				jsonMessage.put("receiver", username2);
+			}else {
+				jsonMessage.put("sender", username2);
+				jsonMessage.put("receiver", username1);
+			}
+			jsonMessage.put("message", LastMessage.getMessage().length()>40?LastMessage.getMessage().substring(0, 40)+"...":LastMessage.getMessage());
+			jsonMessage.put("created", LastMessage.getCreated());
+			jsonMessage.put("messageID",LastMessage.getMessageID());
+			hasiljson.add(jsonMessage);
+			
+		}else {
+			jsonMessage.put("message", "");
+			hasiljson.add(jsonMessage);
+		}
+		return hasiljson.toString();		
+	}
 }

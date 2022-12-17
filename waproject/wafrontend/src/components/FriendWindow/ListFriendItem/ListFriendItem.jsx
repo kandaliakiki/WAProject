@@ -4,7 +4,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { Box, Container } from "@mui/system";
-import { Grid, List, ListItemButton, Paper, Typography } from "@mui/material";
+import {
+  Badge,
+  Grid,
+  List,
+  ListItemButton,
+  Paper,
+  Typography,
+} from "@mui/material";
 import "./ListFriendItem.css";
 
 const style = {
@@ -13,7 +20,7 @@ const style = {
   bgcolor: "background.paper",
 };
 
-const ListFriendItem = ({ friends, onClickFriend }) => {
+const ListFriendItem = ({ friends, onClickFriend, user1 }) => {
   const listAllFriend =
     friends !== undefined ? (
       friends.map((friend, index, friends) => (
@@ -24,12 +31,21 @@ const ListFriendItem = ({ friends, onClickFriend }) => {
               onClickFriend(friend);
             }}
           >
-            <ListItemText
-              primary={`${friend.name} ${
-                friend.isFriend ? "" : "(Not Friend)"
-              }`}
-            />
+            <div>
+              <ListItemText
+                primary={`${friend.name} ${
+                  friend.isFriend ? "" : "(Not Friend)"
+                }`}
+              />
+              {/* <Typography variant="body2">{friend.lastChat}</Typography> */}
+              <Badge color="secondary" badgeContent={1}>
+                <div>
+                  <Typography variant="body2">{friend.lastChat}</Typography>
+                </div>
+              </Badge>
+            </div>
           </ListItemButton>
+
           <Divider />
         </React.Fragment>
       ))

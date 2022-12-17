@@ -1,10 +1,11 @@
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, IconButton, Typography } from "@mui/material";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import ListFriendItem from "./ListFriendItem/ListFriendItem";
 import * as api from "../../api";
 import DropDownFriend from "./DropDownFriend";
 import { useNavigate } from "react-router";
 import ProfileBar from "./ProfileBar";
+import RefreshIcon from "@mui/icons-material/Refresh";
 const FriendWindow = ({
   user1,
   onClickFriend,
@@ -13,14 +14,7 @@ const FriendWindow = ({
   onUpdateProfile,
 }) => {
   const Navigate = useNavigate();
-  const getIsFriend = async (user1ID, user2ID) => {
-    const isFriendParam = {
-      user1ID: user1ID,
-      user2ID: user2ID,
-    };
-    const { data } = await api.isFriend(isFriendParam);
-    return data;
-  };
+
   const fetchFriendByUser = async () => {
     const paramFriend = {
       user1ID: user1.userID,
@@ -32,7 +26,12 @@ const FriendWindow = ({
         user2ID: data[i].userID,
       };
       const res = await api.isFriend(isFriendParam);
-      const newObj = { ...data[i], isFriend: res.data };
+      const resLastMessage = await api.getLastChatUsers(isFriendParam);
+      const newObj = {
+        ...data[i],
+        isFriend: res.data,
+        lastChat: resLastMessage.data[0].message,
+      };
       Object.assign(data[i], newObj);
     }
 
@@ -53,6 +52,9 @@ const FriendWindow = ({
   return (
     <Fragment>
       <Container>
+        <IconButton>
+          <RefreshIcon> </RefreshIcon>
+        </IconButton>
         <ProfileBar
           username={user1.name}
           user1={user1}
@@ -61,6 +63,7 @@ const FriendWindow = ({
         <ListFriendItem
           friends={friends}
           onClickFriend={onClickFriend}
+          user1={user1}
         ></ListFriendItem>
       </Container>
     </Fragment>
