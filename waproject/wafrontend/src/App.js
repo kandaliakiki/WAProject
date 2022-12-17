@@ -20,7 +20,7 @@ function App() {
   const [user1, setUser1] = useState(undefined);
   const [user2, setUser2] = useState(undefined);
   const [friends, setFriends] = useState([]);
-
+  const Navigate = useNavigate();
   const handleClickFriend = async (friend) => {
     // console.log(friend.name);
     const paramUser = {
@@ -68,6 +68,14 @@ function App() {
   const handleUpdateProfile = (user1) => {
     setUser1(user1);
   };
+
+  useEffect(() => {
+    // Navigate("/");
+    console.log("test");
+    if (user1 === undefined) {
+      Navigate("/");
+    }
+  }, [user1]);
 
   return (
     <Fragment>

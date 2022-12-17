@@ -43,21 +43,23 @@ const FriendWindow = ({
     // console.log("data akhir : " + data[0].isFriend);
     onSetFriends(data);
   };
+  useEffect(() => {
+    // Navigate("/");
+    console.log("test");
+    if (user1 === undefined) {
+      Navigate("/");
+    }
+  }, []);
 
   useEffect(() => {
     fetchFriendByUser();
   }, [friends]);
 
-  useEffect(() => {
-    if (user1 == undefined) {
-      Navigate("/");
-    }
-  }, []);
   return (
     <Fragment>
       <Container>
         <ProfileBar
-          username={user1.name}
+          username={user1 === undefined ? "" : user1.name}
           user1={user1}
           onUpdateProfile={onUpdateProfile}
         ></ProfileBar>
