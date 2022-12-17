@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const urlMessage = "http://localhost:8080/message";
+const urlMessage = "https://waprojectkiki.herokuapp.com/message";
 
 export const getChatUsers = (paramChatUser) =>
   axios.post(`${urlMessage}/getMessage2Users`, paramChatUser);
@@ -17,7 +17,7 @@ export const countUnread = (paramMessage) =>
 export const updateRead = (paramMessage) =>
   axios.post(`${urlMessage}/updateRead`, paramMessage);
 
-const urlFriend = "http://localhost:8080/friend";
+const urlFriend = "https://waprojectkiki.herokuapp.com/friend";
 
 export const getFriendByUser = (paramFriend) =>
   axios.post(`${urlFriend}/getFriendByUser`, paramFriend);
@@ -31,7 +31,7 @@ export const deleteFriend = (paramNewFriend) =>
 export const isFriend = (paramIsFriend) =>
   axios.post(`${urlFriend}/isFriend`, paramIsFriend);
 
-const urlUser = "http://localhost:8080/user";
+const urlUser = "https://waprojectkiki.herokuapp.com/user";
 
 export const getAllOtherUser = (paramAllUser) =>
   axios.post(`${urlUser}/getAllOtherUser`, paramAllUser);
@@ -53,7 +53,7 @@ export const getUserByID = (paramUser) =>
 
 // axios({
 //   method: "post",
-//   url: `http://localhost:8080/message/getMessage2Users`,
+//   url: `https://waprojectkiki.herokuapp.com/message/getMessage2Users`,
 //   data: paramChatUser,
 // });
 // axios.post(`${urlMessage}/getMessage2Users`, );
