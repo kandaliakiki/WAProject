@@ -20,8 +20,15 @@ function App() {
   const [user1, setUser1] = useState(undefined);
   const [user2, setUser2] = useState(undefined);
   const [friends, setFriends] = useState([]);
-  const handleClickFriend = (friend) => {
+
+  const handleClickFriend = async (friend) => {
     console.log(friend.name);
+    const paramUser = {
+      user1ID: user1.userID,
+      user2ID: friend.userID,
+    };
+    const { data } = await api.updateRead(paramUser);
+    console.log(data);
     setUser2(friend);
   };
   const navigate = useNavigate();
@@ -30,6 +37,10 @@ function App() {
     setFriends(friends);
   };
 
+  const handleRefresh = (friends) => {
+    setFriends([]);
+    setUser2(undefined);
+  };
   const handleAddFriend = async (newFriendID) => {
     const paramAddFriend = {
       user1ID: user1.userID,
@@ -91,6 +102,7 @@ function App() {
                   onAddFriend={handleAddFriend}
                   onDeleteFriend={handleDeleteFriend}
                   onUpdateProfile={handleUpdateProfile}
+                  onClickRefresh={handleRefresh}
                 ></FriendWindow>
               </Grid>
               <Grid item xs={9}>

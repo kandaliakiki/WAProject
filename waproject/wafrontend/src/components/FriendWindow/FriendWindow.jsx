@@ -12,6 +12,7 @@ const FriendWindow = ({
   friends,
   onSetFriends,
   onUpdateProfile,
+  onClickRefresh,
 }) => {
   const Navigate = useNavigate();
 
@@ -21,16 +22,18 @@ const FriendWindow = ({
     };
     const { data } = await api.getFriendByUser(paramFriend);
     for (let i = 0; i < data.length; i++) {
-      const isFriendParam = {
+      const FriendParam = {
         user1ID: user1.userID,
         user2ID: data[i].userID,
       };
-      const res = await api.isFriend(isFriendParam);
-      const resLastMessage = await api.getLastChatUsers(isFriendParam);
+      const res = await api.isFriend(FriendParam);
+      const resLastMessage = await api.getLastChatUsers(FriendParam);
+      const resCountUnread = await api.countUnread(FriendParam);
       const newObj = {
         ...data[i],
         isFriend: res.data,
         lastChat: resLastMessage.data[0].message,
+        countUnread: resCountUnread.data,
       };
       Object.assign(data[i], newObj);
     }
@@ -52,14 +55,14 @@ const FriendWindow = ({
   return (
     <Fragment>
       <Container>
-        <IconButton>
-          <RefreshIcon> </RefreshIcon>
-        </IconButton>
         <ProfileBar
           username={user1.name}
           user1={user1}
           onUpdateProfile={onUpdateProfile}
         ></ProfileBar>
+        <IconButton onClick={onClickRefresh}>
+          <RefreshIcon> </RefreshIcon>
+        </IconButton>
         <ListFriendItem
           friends={friends}
           onClickFriend={onClickFriend}

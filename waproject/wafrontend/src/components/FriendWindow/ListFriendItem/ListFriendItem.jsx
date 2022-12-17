@@ -38,7 +38,7 @@ const ListFriendItem = ({ friends, onClickFriend, user1 }) => {
                 }`}
               />
               {/* <Typography variant="body2">{friend.lastChat}</Typography> */}
-              <Badge color="secondary" badgeContent={1}>
+              <Badge color="secondary" badgeContent={friend.countUnread}>
                 <div>
                   <Typography variant="body2">{friend.lastChat}</Typography>
                 </div>
@@ -61,7 +61,7 @@ const ListFriendItem = ({ friends, onClickFriend, user1 }) => {
               <Grid className="friend-window" item xs={12}>
                 <Typography variant="h6">Friends</Typography>
                 <Typography variant="body2">
-                  (Change Between Friend to refresh Chat)
+                  (Change Between Friend or click refresh to refresh Chat)
                 </Typography>
                 <List className="friend-list">{listAllFriend}</List>
               </Grid>

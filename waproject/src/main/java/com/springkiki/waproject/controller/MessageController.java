@@ -102,4 +102,24 @@ public class MessageController {
 		}
 		return hasiljson.toString();		
 	}
+	
+	@PostMapping("/countUnread")
+	public 	Integer getCountUnread(@RequestBody String params) {
+		JSONObject param = new JSONObject(params);
+		return messageService.getCountUnread(param.getInt("user1ID"), param.getInt("user2ID"));
+	}
+	
+	@PostMapping("/updateRead")
+	public 	String updateRead(@RequestBody String params) {
+		JSONObject param = new JSONObject(params);
+		try {
+			int count = messageService.updateRead(param.getInt("user1ID"), param.getInt("user2ID"));
+			System.out.println(count);
+		} catch (Exception e) {
+			return "update failed";
+		}
+		return "update successful";
+		
+//		return messageService.updateRead(param.getInt("user1ID"), param.getInt("user2ID"));
+	}
 }

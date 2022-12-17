@@ -36,4 +36,12 @@ public class MessageServiceImpl implements MessageService {
 	public Message getLastMessageBetweenUsers(int user1ID ,int user2ID) {
 		return messageRepository.getLastMessageBetweenUsers(user1ID, user2ID);
 	}
+	
+	public 	Integer getCountUnread(int user1ID, int user2ID) {
+		return messageRepository.getCountUnread(user1ID, user2ID);
+	}
+	
+	public int updateRead(int user1ID, int user2ID) {
+		return messageRepository.updateRead(user1ID, user2ID);
+	}
 }

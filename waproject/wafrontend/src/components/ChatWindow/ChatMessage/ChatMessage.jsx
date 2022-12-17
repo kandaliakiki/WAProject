@@ -51,6 +51,8 @@ const ChatMessage = ({ messages, user1, user2, onSendMessage }) => {
       message: messageTyped,
       receiverID: user2.userID,
       senderID: user1.userID,
+      readbysender: "Y",
+      readbyreceiver: "N",
     };
 
     const paramUser = {

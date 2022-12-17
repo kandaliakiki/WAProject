@@ -2,6 +2,7 @@ package com.springkiki.waproject.model;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,19 +18,24 @@ public class Message {
 	private int receiverID;
 	private String message;
 	private Timestamp created;
-	private boolean readbysender;
-	private boolean readbyreceiver;
 	
-	public boolean isReadbysender() {
+	@Column(columnDefinition = "varchar(2) default 'N'")
+	private String readbysender;
+	
+	@Column(columnDefinition = "varchar(2) default 'N'")
+	private String readbyreceiver;
+	
+
+	public String getReadbysender() {
 		return readbysender;
 	}
-	public void setReadbysender(boolean readbysender) {
+	public void setReadbysender(String readbysender) {
 		this.readbysender = readbysender;
 	}
-	public boolean isReadbyreceiver() {
+	public String getReadbyreceiver() {
 		return readbyreceiver;
 	}
-	public void setReadbyreceiver(boolean readbyreceiver) {
+	public void setReadbyreceiver(String readbyreceiver) {
 		this.readbyreceiver = readbyreceiver;
 	}
 	public Timestamp getCreated() {

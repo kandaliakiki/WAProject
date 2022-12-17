@@ -11,6 +11,12 @@ export const getLastChatUsers = (paramChatUser) =>
 export const createMessage = (paramMessage) =>
   axios.post(`${urlMessage}/createMessage`, paramMessage);
 
+export const countUnread = (paramMessage) =>
+  axios.post(`${urlMessage}/countUnread`, paramMessage);
+
+export const updateRead = (paramMessage) =>
+  axios.post(`${urlMessage}/updateRead`, paramMessage);
+
 const urlFriend = "http://localhost:8080/friend";
 
 export const getFriendByUser = (paramFriend) =>
