@@ -6,6 +6,7 @@ import DropDownFriend from "./DropDownFriend";
 import { useNavigate } from "react-router";
 import ProfileBar from "./ProfileBar";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import SearchFriend from "./SearchFriend";
 const FriendWindow = ({
   user1,
   onClickFriend,
@@ -63,6 +64,10 @@ const FriendWindow = ({
         <IconButton onClick={onClickRefresh}>
           <RefreshIcon> </RefreshIcon>
         </IconButton>
+        <SearchFriend
+          friends={friends}
+          onClickFriend={onClickFriend}
+        ></SearchFriend>
         <ListFriendItem
           friends={friends}
           onClickFriend={onClickFriend}

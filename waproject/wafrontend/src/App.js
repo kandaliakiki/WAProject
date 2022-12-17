@@ -22,7 +22,7 @@ function App() {
   const [friends, setFriends] = useState([]);
 
   const handleClickFriend = async (friend) => {
-    console.log(friend.name);
+    // console.log(friend.name);
     const paramUser = {
       user1ID: user1.userID,
       user2ID: friend.userID,
