@@ -24,7 +24,11 @@ const ListFriendItem = ({ friends, onClickFriend }) => {
               onClickFriend(friend);
             }}
           >
-            <ListItemText primary={friend.name} />
+            <ListItemText
+              primary={`${friend.name} ${
+                friend.isFriend ? "" : "(Not Friend)"
+              }`}
+            />
           </ListItemButton>
           <Divider />
         </React.Fragment>
@@ -39,6 +43,10 @@ const ListFriendItem = ({ friends, onClickFriend }) => {
           <Box padding={3} marginTop={3}>
             <Grid container>
               <Grid className="friend-window" item xs={12}>
+                <Typography variant="h6">Friends</Typography>
+                <Typography variant="body2">
+                  (Change Between Friend to refresh Chat)
+                </Typography>
                 <List className="friend-list">{listAllFriend}</List>
               </Grid>
             </Grid>

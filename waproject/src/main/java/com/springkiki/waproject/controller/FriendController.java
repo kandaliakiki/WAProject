@@ -62,6 +62,12 @@ public class FriendController {
 		return listUserObj;
 	}
 	
+	@PostMapping("/isFriend")
+	public boolean isFriend( @RequestBody String params ) {
+		JSONObject param = new JSONObject(params);
+		return friendService.checkFriendExist(param.getInt("user1ID"), param.getInt("user2ID"))>0;
+	}
+	
 	@PostMapping("/deleteFriend")
 	public String deleteFriend(@RequestBody String params ) {
 		JSONObject param = new JSONObject(params);

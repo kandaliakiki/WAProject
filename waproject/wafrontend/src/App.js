@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { Container } from "@mui/system";
-import { Fragment, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Fragment, useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import ChatHeader from "./components/ChatWindow/ChatHeader/ChatHeader";
 import ChatMessage from "./components/ChatWindow/ChatMessage/ChatMessage";
@@ -12,16 +12,19 @@ import LoginWindow from "./components/LoginWindow/LoginWindow";
 import * as api from "./api";
 
 function App() {
-  const userKiki = {
-    userID: 1,
-    name: "Kiki",
-  };
-  const [user1, setUser1] = useState(userKiki);
+  // const userKiki = {
+  //   userID: 1,
+  //   name: "Kiki",
+  // };
+
+  const [user1, setUser1] = useState(undefined);
   const [user2, setUser2] = useState(undefined);
   const [friends, setFriends] = useState([]);
   const handleClickFriend = (friend) => {
+    console.log(friend.name);
     setUser2(friend);
   };
+  const navigate = useNavigate();
 
   const handleSetFriends = (friends) => {
     setFriends(friends);
@@ -46,38 +49,62 @@ function App() {
     console.log(data);
     setFriends([]);
   };
+
+  const handleLogin = (user1) => {
+    setUser1(user1);
+  };
+
+  const handleUpdateProfile = (user1) => {
+    setUser1(user1);
+  };
+
   return (
     <Fragment>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginWindow></LoginWindow>}></Route>
-          <Route
-            path="/chats"
-            element={
-              <Grid container>
-                <Grid item xs={3}>
-                  <FriendWindow
-                    user1={user1}
-                    onClickFriend={handleClickFriend}
-                    friends={friends}
-                    onSetFriends={handleSetFriends}
-                  ></FriendWindow>
-                </Grid>
-                <Grid item xs={9}>
-                  <ChatWindow user1={user1} user2={user2}></ChatWindow>
-                </Grid>
-                <Grid item xs={12}>
-                  <DropDownFriend
-                    user1={user1}
-                    onAddFriend={handleAddFriend}
-                    onDeleteFriend={handleDeleteFriend}
-                  ></DropDownFriend>
-                </Grid>
+      <Routes>
+        <Route
+          path="/"
+          element={<LoginWindow onLogin={handleLogin}></LoginWindow>}
+        ></Route>
+        <Route
+          path="/chats"
+          element={
+            <Grid container>
+              <Grid item style={{ padding: 15 }} xs={12}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </Button>
               </Grid>
-            }
-          ></Route>
-        </Routes>
-      </BrowserRouter>
+              <Grid item xs={3}>
+                <FriendWindow
+                  user1={user1}
+                  onClickFriend={handleClickFriend}
+                  friends={friends}
+                  onSetFriends={handleSetFriends}
+                  onAddFriend={handleAddFriend}
+                  onDeleteFriend={handleDeleteFriend}
+                  onUpdateProfile={handleUpdateProfile}
+                ></FriendWindow>
+              </Grid>
+              <Grid item xs={9}>
+                <ChatWindow user1={user1} user2={user2}></ChatWindow>
+              </Grid>
+              <Grid item xs={12}>
+                <DropDownFriend
+                  user1={user1}
+                  onAddFriend={handleAddFriend}
+                  onDeleteFriend={handleDeleteFriend}
+                ></DropDownFriend>
+              </Grid>
+            </Grid>
+          }
+        ></Route>
+      </Routes>
     </Fragment>
   );
 }

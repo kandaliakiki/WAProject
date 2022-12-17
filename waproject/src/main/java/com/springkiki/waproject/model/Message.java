@@ -17,7 +17,21 @@ public class Message {
 	private int receiverID;
 	private String message;
 	private Timestamp created;
+	private boolean readbysender;
+	private boolean readbyreceiver;
 	
+	public boolean isReadbysender() {
+		return readbysender;
+	}
+	public void setReadbysender(boolean readbysender) {
+		this.readbysender = readbysender;
+	}
+	public boolean isReadbyreceiver() {
+		return readbyreceiver;
+	}
+	public void setReadbyreceiver(boolean readbyreceiver) {
+		this.readbyreceiver = readbyreceiver;
+	}
 	public Timestamp getCreated() {
 		return created;
 	}

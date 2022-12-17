@@ -2,6 +2,7 @@ package com.springkiki.waproject.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,30 @@ public class UserController {
 	
 	@PostMapping("/createUser")
 	public String createUser(@RequestBody User user ) {
+		if(userService.checkExistName(user.getName())>0) {
+			return "user with same name existed";
+		}
 		userService.createUser(user);
 		return "new user has been added";
 	}
+	
+	@PostMapping("/updateUser")
+	public String updateUser(@RequestBody User user ) {
+		if(userService.checkExistName(user.getName())>0) {
+			return "user with same name existed";
+		}
+		
+		if(user.getName().length()<=0) {
+			return "nama harus diisi";
+		}
+		
+		if(user.getPassword().length()<=0) {
+			return "password harus diisi";
+		}
+		userService.updateUser(user);
+		return "user has been updated";
+	}
+	
 	
 	@GetMapping("/getAllUser")
 	public List<User> getUser() {
@@ -53,5 +75,28 @@ public class UserController {
 		}
 		return hasiljson.toString();
 	}
+	
+	@PostMapping("/loginUser")
+	public String  loginUser(@RequestBody String params) {
+		JSONObject param = new JSONObject(params);
+		Integer checkLogin = userService.loginCheck(param.getString("name"),param.getString("password"));
+		if(checkLogin>0) {
+			return "Login Successful";
+		}
+		return "Login Failed";
+	}
+	
+	@PostMapping("/getUserByQuery")
+	public User  getUserObject(@RequestBody String params) {
+		JSONObject param = new JSONObject(params);
+		return userService.getUserByQuery(param.getString("name"),param.getString("password"));
+	}
+	
+	@PostMapping("/getUserByID")
+	public Optional<User>  getUserByID(@RequestBody String params) {
+		JSONObject param = new JSONObject(params);
+		return userService.getUserByID(param.getInt("userID"));
+	}
+
 
 }

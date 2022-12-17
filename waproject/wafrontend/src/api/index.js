@@ -19,12 +19,28 @@ export const addFriend = (paramNewFriend) =>
 export const deleteFriend = (paramNewFriend) =>
   axios.post(`${urlFriend}/deleteFriend`, paramNewFriend);
 
+export const isFriend = (paramIsFriend) =>
+  axios.post(`${urlFriend}/isFriend`, paramIsFriend);
+
 const urlUser = "http://localhost:8080/user";
 
 export const getAllOtherUser = (paramAllUser) =>
   axios.post(`${urlUser}/getAllOtherUser`, paramAllUser);
 
-export const getAllMessage = () => axios.get(`${urlMessage}/getAllMessage`);
+export const loginUser = (paramLogin) =>
+  axios.post(`${urlUser}/loginUser`, paramLogin);
+
+export const getUserObj = (paramLogin) =>
+  axios.post(`${urlUser}/getUserByQuery`, paramLogin);
+
+export const registerUser = (paramLogin) =>
+  axios.post(`${urlUser}/createUser`, paramLogin);
+
+export const updateUser = (paramUser) =>
+  axios.post(`${urlUser}/updateUser`, paramUser);
+
+export const getUserByID = (paramUser) =>
+  axios.post(`${urlUser}/getUserByID`, paramUser);
 
 // axios({
 //   method: "post",

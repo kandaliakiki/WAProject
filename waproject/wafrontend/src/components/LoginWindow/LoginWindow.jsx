@@ -12,6 +12,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { redirect, useNavigate } from "react-router-dom";
+import * as api from "../../api";
 
 function Copyright(props) {
   return (
@@ -33,14 +35,38 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const LoginWindow = () => {
-  const handleSubmit = (event) => {
+const LoginWindow = ({ onLogin }) => {
+  const [isRegister, setIsRegister] = React.useState(false);
+  const [error, setError] = React.useState(undefined);
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const dataForm = new FormData(event.currentTarget);
+    const paramlogin = {
+      name: dataForm.get("name").toString(),
+      password: dataForm.get("password").toString(),
+    };
+    if (!isRegister) {
+      const { data } = await api.loginUser(paramlogin);
+      if (data === "Login Successful") {
+        const { data } = await api.getUserObj(paramlogin);
+        onLogin(data);
+        navigate("/chats");
+      } else {
+        setError("Wrong password / Name");
+        console.log("Login Failed");
+      }
+    } else {
+      const { data } = await api.registerUser(paramlogin);
+      if (data === "new user has been added") {
+        const { data } = await api.getUserObj(paramlogin);
+        onLogin(data);
+        navigate("/chats");
+      } else {
+        console.log("user with same name existed");
+        setError("user with same name existed");
+      }
+    }
   };
 
   return (
@@ -59,7 +85,7 @@ const LoginWindow = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {isRegister ? "Sign Up" : "Sign In"}
           </Typography>
           <Box
             component="form"
@@ -86,18 +112,28 @@ const LoginWindow = () => {
               id="password"
               autoComplete="current-password"
             />
+            <Typography color="red" variant="body2">
+              {error ? error : ""}
+            </Typography>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              {isRegister ? "Sign Up" : "Sign In"}
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link
+                  onClick={() => {
+                    setIsRegister(!isRegister);
+                  }}
+                  variant="body2"
+                >
+                  {isRegister
+                    ? "Already Have Account? Sign In"
+                    : "Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>

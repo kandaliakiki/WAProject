@@ -13,7 +13,12 @@ import com.springkiki.waproject.model.User;
 @Repository
 public interface FriendRepository extends JpaRepository<Friend, Integer>{
 
-	@Query(value =   "select user2id from friend f where user1id = :user1ID", nativeQuery = true)
+	@Query(value =   "select a.userID from ( "
+			+ "select (select case when message.senderid= :user1ID then receiverid else senderid end) as userID "
+			+ "from message where senderid =  :user1ID or receiverid =  :user1ID "
+			+ "group by userID "
+			+ "union  "
+			+ "select user2id as userID from friend f where user1id =  :user1ID) as a group by a.userID", nativeQuery = true)
 	List<Integer> getAllFriendsByUser(int user1ID);
 	
 	@Query(value =   "select *  from friend f where user1id = :user1ID and user2id = :user2ID", nativeQuery = true)

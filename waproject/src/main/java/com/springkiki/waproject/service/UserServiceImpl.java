@@ -32,4 +32,22 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllOtherUser(int userID) {
 		return userRepository.getAllOtherUser(userID);
 	}
+	
+	public Integer loginCheck(String name , String password) {
+		return userRepository.loginCheck(name, password);
+	}
+	
+	public Integer checkExistName(String name) {
+		return userRepository.checkExistName(name);
+	}
+	
+	public User getUserByQuery(String name , String password) {
+		return userRepository.getUserByQuery(name, password);
+	}
+	
+	public User updateUser(User user) {
+		return userRepository.save(user);
+	}
+	
+	
 }

@@ -11,13 +11,15 @@ const ChatWindow = ({ user1, user2 }) => {
         user1ID: user1.userID,
         user2ID: user2.userID,
       };
-      console.log("test");
+      console.log(user1.name + "" + user2.name);
       const { data } = await api.getChatUsers(paramUser);
       setMessages(data);
     }
   };
 
+  // setInterval(fetchMessage, 1000);
   useEffect(() => {
+    setMessages([]);
     fetchMessage();
   }, [user2]);
 
